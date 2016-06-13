@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "$PWD/scripts/functions.sh"
+
+sudo -v
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+info 'updating dotfiles repository'
+git pull --quiet;
+success 'updated dotfiles repository'
+
+info 'creating required directories'
+[ -d $HOME/.mackup ] || mkdir $HOME/.mackup
+[ -d $HOME/.zsh ] || mkdir $HOME/.zsh
+[ -d $HOME/Workspace ] || mkdir $HOME/Workspace
+success 'created required directories'
+
+if [[ ! $(which brew) ]]; then
+  info 'installing homebrew'
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  success 'installed homebrew'
+fi
+
+info 'installing dotfiles'
+link '~/.curlrc' 'curl/curlrc' true
+link '~/.editorconfig' 'editorconfig/editorconfig' true
+link '~/.gitattributes' 'git/gitattributes' true
+link '~/.gitconfig' 'git/gitconfig' true
+link '~/.gitignore' 'git/gitignore' true
+link '~/.mackup.cfg' 'mackup/mackup.cfg' true
+link '~/.mackup/jetbrains-tools.cfg' 'mackup/jetbrains-tools.cfg' true
+link '~/.vimrc' 'vim/vimrc' true
+link '~/.wgetrc' 'wget/wgetrc' true
+link '~/.zsh/options.zsh' 'zsh/options.zsh' true
+link '~/.zsh/plugins.txt' 'zsh/plugins.txt' true
+link '~/.zshrc' 'zsh/zshrc' true
+success "installed dotfiles"
+
+info 'installing homebrew applications'
+/usr/local/bin/brew bundle --quiet
+success 'installed homebrew applications'
+
+info 'synchronizing application settings'
+/usr/local/bin/mackup --force restore
+success 'synchronized application settings'
+
+info 'configuring macos settings'
+chmod +x $HOME/.dotfiles/macos/set-defaults.sh
+$HOME/.dotfiles/macos/set-defaults.sh
+success 'configured macos settings'
+
+info 'installing zsh plugins'
+antibody bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh_plugins.sh
+success 'installed zsh plugins'
+
+info 'updating zsh plugins'
+antibody update
+success 'updated zsh plugins'
+
+info 'removing outdated homebrew packages'
+brew cleanup
+success 'removed outdated homebrew packages'

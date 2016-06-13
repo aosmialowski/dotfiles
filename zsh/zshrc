@@ -1,0 +1,22 @@
+# PATH
+export EDITOR='vim'
+export SUDO_EDITOR='vim'
+
+export WORKSPACE=$HOME/Workspace
+
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/node@12/bin:$PATH"
+export PATH=$WORKSPACE:$PATH
+
+source ~/.zsh_plugins.sh
+source ~/.zsh/options.zsh
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
+# ALIASES
+alias w="cd ~/Workspace"

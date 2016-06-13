@@ -1,0 +1,36 @@
+[core]
+	excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+  editor = vim
+[user]
+	name = Andrzej Ośmiałowski
+	email = aosmialowski@icloud.com
+  #signingkey = 0A000B9B5A0DA288!
+[push]
+	default = simple
+[diff]
+  tool = meld
+[merge]
+  tool = meld
+[color]
+ 	branch = auto
+	diff = auto
+	status = auto
+	ui = auto
+[alias]
+  logs = log --graph --oneline --decorate --all
+[help]
+  autocorrect = 1
+[status]
+  showuntrackedfiles = all
+[commit]
+  #gpgsign = true
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[init]
+	defaultBranch = master
+[pull]
+	rebase = false

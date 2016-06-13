@@ -1,0 +1,15 @@
+- shell:
+  - command: git pull
+    description: Updating dotfiles repository
+    quitet: true
+  - command: brew update
+    description: Updating Homebrew
+    quitet: true
+  - command: brew upgrade
+    description: Upgrading Homebrew applications
+    quitet: true
+  - command: mackup backup --force
+    description: Backing up applications preferences
+    quitet: true
+  - command: brew bundle dump --force --file ~/Brewfile
+    description: Updating Brewfile
