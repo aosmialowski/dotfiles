@@ -1,0 +1,252 @@
+# i3 config file
+
+
+# --- Startup programs ---
+
+# Start nm-applet if present
+#exec --no-startup-id type nm-applet && nm-applet
+
+# Start dunst if present
+exec --no-startup-id type dunst && dunst
+
+# Set random wallpaper from ~/.local/share/wallpapers/ if present
+exec --no-startup-id test ! -d ~/.local/share/wallpapers || (sleep 1 ; feh --bg-fill --randomize ~/.local/share/wallpapers)
+
+# Run Conky
+exec --no-startup-id ~/bin/conky.sh
+
+# Set up monitors
+exec ~/bin/xrandr.sh
+
+
+# ---- i3 options ----
+
+# Use Super key as a main modifier
+set $mod Mod4
+
+# Set up default fonts
+font pango:System San Francisco Display, FontAwesome 8
+
+
+# ---- Configure workspaces ----
+
+# Configure workspaces
+set $workspace1 "1: Firefox"
+set $workspace2 "2: Chrome"
+set $workspace3 "3: Terminal"
+set $workspace4 "4: IDE"
+set $workspace5 "5: Slack"
+set $workspace6 "6: Skype"
+set $workspace7 "7: MySQL Workbench"
+set $workspace8 "8: Spotify"
+set $workspace9 "9: "
+set $workspace10 "10: "
+
+
+# ---- Window options ----
+
+assign [class="Firefox"] $workspace1
+assign [class="google-chrome"] $workspace2
+assign [class="urxvt"] $workspace3
+assign [class="jetbrains-idea"] $workspace4
+assign [class="Slack"] $workspace5
+assign [class="Skype"] $workspace6
+assign [class="mysql-workbench-bin"] $workspace7
+assign [class="Spotify"] $workspace8
+
+workspace $workspace1 output eDP-1
+workspace $workspace2 output eDP-1
+workspace $workspace3 output HDMI-1
+workspace $workspace4 output HDMI-1
+workspace $workspace5 output HDMI-1
+workspace $workspace6 output HDMI-1
+workspace $workspace7 output HDMI-1
+workspace $workspace8 output HDMI-1
+workspace $workspace9 output HDMI-1
+workspace $workspace10 output HDMI-1
+
+for_window [class="Spotify"] move to workspace $workspace8
+
+for_window [class="Oblogout"] floating enable, fullscreen enable
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# use these keys for focus, movement, and resize directions when reaching for
+# the arrows is not convenient
+set $up l
+set $down k
+set $left j
+set $right semicolon
+
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec urxvt
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "oblogout"
+#bindsym $mod+Shift+l exec i3lock
+bindsym $mod+Home exec ~/bin/xrandr.sh
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym $left       resize shrink width 10 px or 10 ppt
+        bindsym $down       resize grow height 10 px or 10 ppt
+        bindsym $up         resize shrink height 10 px or 10 ppt
+        bindsym $right      resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left        resize shrink width 10 px or 10 ppt
+        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Up          resize shrink height 10 px or 10 ppt
+        bindsym Right       resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+set $bg-color            #262626
+set $inactive-bg-color   #262626
+set $text-color          #f3f4f5
+set $inactive-text-color #676E7D
+set $urgent-bg-color     #E53935
+
+# window colors
+#                         border              background         text                 indicator
+client.focused            $bg-color           $bg-color          $text-color          #00ff00
+client.unfocused          $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
+client.focused_inactive   $inactive-bg-color  $inactive-bg-color $inactive-text-color #00ff00
+client.urgent             $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+
+hide_edge_borders both
+
+bar {
+    status_command i3blocks
+    tray_output primary
+	colors {
+		background $bg-color
+                separator #757575
+		#                  border             background         text
+		focused_workspace  $bg-color          $bg-color          $text-color
+		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+	}
+
+}
+
+bindsym $mod+d exec rofi -show run -font "System San Francisco Display Light 18"
+bindsym $mod+x exec rofi -show ssh -font "System San Francisco Display Light 18"
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -q -D pulse sset Master 5%+"
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -q -D pulse sset Master 5%-"
+bindsym XF86AudioMute exec --no-startup-id "amixer -q -D pulse sset Master toggle"
+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+#exec --no-startup-id gnome-settings-daemon
+#exec --no-startup-id nm-applet
+#exec --no-startup-id gnome-sound-applet
+
+# take a screenshot
+#bindsym Print exec gnome-screenshot
+
+mode  "(s)leep (h)ybernate (p)owersave (r)estart shut(d)own" {
+
+        bindsym s exec sudo pm-suspend; mode "default"
+        bindsym h exec sudo pm-hibernate; mode "default"
+        bindsym p exec sudo pm-powersave; mode "default"
+        bindsym d exec sudo 'shutdown -h now'; mode "default"
+        bindsym r exec sudo 'shutdown -r now'; mode "default"
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+n mode "(s)leep (h)ybernate (p)owersave (r)estart shut(d)own"
+
+bindsym $mod+shift+x exec i3lock -c "$bg-color"
