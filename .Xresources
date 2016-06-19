@@ -1,4 +1,4 @@
-#include ".colors/base16-monokai.dark.256.xresources"
+#include ".colors/base16-railscasts.dark.256.xresources"
 
 ! Xft
 Xft.dpi:           96
