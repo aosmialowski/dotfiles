@@ -1,3 +1,4 @@
+! Color scheme
 #include ".colors/base16-railscasts.dark.256.xresources"
 
 ! Xft
@@ -9,7 +10,7 @@ Xft.hintstyle:     hintslight
 
 ! URxvt
 URxvt.termName: rxvt-unicode-256color
-URxvt.perl-ext-common: default,matcher,clipboard,osc-xterm-clipboard,clipb$
+URxvt.perl-ext-common: default,matcher,clipboard,osc-xterm-clipboard
 URxvt*font: xft:Hack:regular:pixelsize=12:antialias=true:hinting=true
 URxvt*boldfont: xft:Hack:bold:pixelsize=12:antialias=true:hinting=true
 URxvt*letterSpace: -1
@@ -17,7 +18,7 @@ URxvt*scrollBar: false
 
 URxvt.allow_bold: true
 URxvt.transparent: true
-URxvt.shading: 8
+URxvt.shading: 10
 URxvt.iso14755 : false
 URxvt.keysym.C-C: perl:clipboard:copy
 URxvt.keysym.C-V: perl:clipboard:paste
@@ -26,14 +27,19 @@ URxvt.externalBorder: 0
 
 
 ! Rofi
-rofi.color-normal: #1d1f21, #ffffff, #1d1f21, #ffffff, #1d1f21
-rofi.color-urgent: #1d1f21, #cc6666, #1d1f21, #cc6666, #1d1f21
-rofi.color-active: #1d1f21, #81a2be, #1d1f21, #81a2be, #1d1f21
-rofi.color-window: #1d1f21, #ffffff
-rofi.width: 200
-rofi.padding: 300
+rofi.color-enabled: true
+rofi.color-window: base03, base03
+! State:           'bg',    'fg',    'bgalt', 'hlbg',  'hlfg'
+rofi.color-normal: base03,  base06,  base03,  base02,  base06
+rofi.color-urgent: base03,  base06,  base03,  base02,  base06
+rofi.color-active: base00,  base06,  base03,  base02,  base06
+rofi.columns: 1
+rofi.width: 40
+rofi.padding: 340
+rofi.font: San Francisco System Display Light 26
 rofi.fullscreen: true
 rofi.bw: 0
 rofi.lines: 10
-rofi.opacity: 90
-rofi.separator-style: dash
+rofi.terminal: /usr/bin/urxvt
+rofi.opacity: 80
+rofi.separator-style: none
