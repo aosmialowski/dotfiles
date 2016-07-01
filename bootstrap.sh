@@ -25,3 +25,6 @@ else
 	fi;
 fi;
 unset install;
+
+# Make all *bin* files executable
+chmod +x ~/bin/*
