@@ -16,9 +16,12 @@ URxvt*boldfont: xft:Hack:bold:pixelsize=12:antialias=true:hinting=true
 URxvt*letterSpace: -1
 URxvt*scrollBar: false
 
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline Bold
 URxvt.allow_bold: true
 URxvt.transparent: true
-URxvt.shading: 10
+URxvt.shading: 20
 URxvt.iso14755 : false
 URxvt.keysym.C-C: perl:clipboard:copy
 URxvt.keysym.C-V: perl:clipboard:paste
