@@ -1,0 +1,5 @@
+/.idea/*
+*.iml
+cache.properties
+.DS_Store
+*.pyc
