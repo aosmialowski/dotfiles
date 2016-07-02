@@ -1,5 +1,5 @@
 ! Color scheme
-#include ".colors/base16-railscasts.dark.256.xresources"
+#include ".Xresources.d/base16-railscasts.xresources"
 
 ! Xft
 Xft.dpi:           96
