@@ -1,0 +1,9 @@
+FROM rabbitmq:management
+
+ENV RABBITMQ_DEFAULT_USER admin
+ENV RABBITMQ_DEFAULT_PASS admin
+ENV RABBITMQ_DEFAULT_VHOST /
+
+EXPOSE 5672 15672
+
+CMD ["rabbitmq-server"]

@@ -1,0 +1,9 @@
+[core]
+	excludesfile = /home/aosmialowski/.gitignore_global
+[user]
+	name = Andrzej Ośmiałowski
+	email = me@osmialowski.net
+[color]
+	ui = auto
+[push]
+	default = simple
