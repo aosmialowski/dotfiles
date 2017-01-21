@@ -2,7 +2,7 @@
 export ZSH=/home/aosmialowski/.oh-my-zsh
 
 # Set name of the theme to load.
-ZSH_THEME="gentoo"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
