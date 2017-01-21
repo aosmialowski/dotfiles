@@ -1,5 +1,9 @@
-/.idea/*
+# IntelliJ IDEA
 *.iml
+*.ipr
+*.iws
+.idea/
+
 cache.properties
 .DS_Store
 *.pyc
