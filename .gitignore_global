@@ -1,10 +1,63 @@
-# IntelliJ IDEA
+### Jetbrains
 *.iml
 *.ipr
 *.iws
 .idea/
+.idea_modules/
+/out/
 
-cache.properties
+### Log files
+*.log
+
+### Package files
+*.tar.gz
+*.rar
+*.zip
+
+### Java
+*.jar
+*.war
+*.ear
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### PHP
+*.phar
+
+### Ansible
+*.retry
+
+### OS
 .DS_Store
-*.pyc
-*.swp
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+### Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+Session.vim
+.netrwhist
+
+### Vagrant
+.vagrant/
+
+### Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+### Composer
+.composer/
+
+### Temporary
+/tmp/
+/temp/
+
+### Misc
+.env
