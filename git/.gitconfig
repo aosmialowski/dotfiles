@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /home/aosmialowski/.gitignore_global
+	excludesfile = /home/aosmialowski/.gitignore
 [user]
 	name = Andrzej Ośmiałowski
 	email = me@osmialowski.net
