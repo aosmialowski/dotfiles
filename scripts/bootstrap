@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+SOURCE=$(pwd -P)
+TARGET=$HOME
+
+info () {
+  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+}
+
+user () {
+  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+}
+
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  echo ''
+  exit
+}
+
+setup_shell () {
+  info "Checking user shell"
+
+  if [ $SHELL != "/bin/zsh" ]; then
+    if [ -f /bin/zsh ]; then
+      info "Changing user shell to ZSH"
+      chsh -l /bin/zsh
+      success "User shell has been changed to ZSH"
+    else
+      fail "Cannot change user shell: ZSH not installed"
+    fi
+  else
+    success "User shell has been already changed to ZSH"
+  fi
+}
+
+setup_dotfiles () {
+  info "Installing dotfiles"
+
+  for package in $(ls); do
+    stow --verbose=1 -d $SOURCE -t $TARGET $package
+  done
+  
+  if [ $? == 0 ]; then
+    success "Dotfiles has been installed successfully"
+  else
+    fail "There were some problems installing dotfiles"
+  fi
+}
+
+setup_shell
+setup_dotfiles
+
+if [ $? == 0 ]; then
+  success "All operations completed successfully"
+else
+  fail "There were some problems during the setup"
+fi
