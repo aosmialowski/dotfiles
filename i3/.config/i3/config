@@ -184,9 +184,6 @@ bindsym $mod+r mode "resize"
 # Enable compositing
 exec --no-startup-id compton -cb
 
-# Handle multiple screens
-exec_always --no-startup-id xrandr --output HDMI3 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI2 --mode 1920x1080 --pos 3840x0 --rotate normal --output HDMI1 --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off --output DP1 --off --dpi 96
-
 # Start Polybar status bar
 exec_always --no-startup-id ~/bin/polybar &
 
