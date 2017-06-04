@@ -42,7 +42,7 @@ setup_shell () {
 setup_dotfiles () {
   info "Installing dotfiles"
 
-  for package in $(ls); do
+  for package in $(find $SOURCE -maxdepth 1 -type d ! -path '*.git*' ! -path '*scripts*' ! -path $SOURCE -exec basename {} \;); do
     info "Proceeding $package"
     stow -d $SOURCE -t $TARGET $package
     if [ $? == 0 ]; then
