@@ -1,1 +1,3 @@
 *.swp
+host_vars/*
+!host_vars/*.dist
