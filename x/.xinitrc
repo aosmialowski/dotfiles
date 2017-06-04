@@ -50,7 +50,7 @@ if [[ $(hostname) == "workstation01" ]]; then
         --dpi 96
 elif [[ $(hostname) == "workstation02" ]]; then
   xrandr \
-        --output eDP-1 \
+        --output eDP1 \
         --primary \
         --mode 1920x1080 \
         --pos 0x0 \
@@ -60,6 +60,8 @@ elif [[ $(hostname) == "workstation02" ]]; then
         --output HDMI-1 \
         --off \
         --output HDMI-2 \
+        --off
+        --output VIRTUAL1 \
         --off
         --dpi 96
 fi
