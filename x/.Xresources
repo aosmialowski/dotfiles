@@ -47,7 +47,7 @@ Xft.hintstyle: hintslight
 
 ! URxvt
 URxvt.termName: rxvt-unicode-256color
-URxvt.perl-ext-common: default,matcher,clipboard,osc-xterm-clipboard
+URxvt.perl-ext-common: default,matcher,clipboard
 URxvt*font: xft:DejaVu Sans Mono:regular:pixelsize=12:antialias=true:hinting=true
 URxvt*boldfont: xft:Deja Vu Sans Mono:bold:pixelsize=12:antialias=true:hinting=true
 URxvt*letterSpace: -1
