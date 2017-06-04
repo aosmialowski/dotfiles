@@ -64,7 +64,16 @@ elif [[ $(hostname) == "workstation02" ]]; then
         --dpi 96
 fi
 
+# start composite manager
+if [[ $(hostname) == "workstation01" ]]; then
+  compton -cb &
+fi
+
+# start removable media automounter
 udiskie &
+
+# demonize rxvt-unicode terminal emulator
+urxvtd -q -f -o &
 
 exec i3
 
