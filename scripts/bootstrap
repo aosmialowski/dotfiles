@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 SOURCE=$(pwd -P)
 TARGET=$HOME
 
@@ -41,7 +43,13 @@ setup_dotfiles () {
   info "Installing dotfiles"
 
   for package in $(ls); do
-    stow --verbose=1 -d $SOURCE -t $TARGET $package
+    info "Proceeding $package"
+    stow -d $SOURCE -t $TARGET $package
+    if [ $? == 0 ]; then
+      success "Proceeded $package"
+    else
+      fail "Error while proceeding $package"
+    fi
   done
   
   if [ $? == 0 ]; then
