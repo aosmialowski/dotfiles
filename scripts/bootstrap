@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+OPTS=`getopt -o t: --long tags: -n 'parse-options' -- "$@"`
+if [ $? != 0 ]; then
+  echo "Failed parsing options." >&2;
+  exit 1;
+fi
+
+eval set -- "$OPTS"
+
+tags=""
+
+while true; do
+  case "$1" in
+    -t | --tags ) tags="$2"; shift ;;
+    * ) break ;;
+  esac
+done
+
+if [[ -z $tags ]]; then
+  ansible-playbook \
+        -c local \
+        -i inventory \
+        bootstrap.yml
+else
+  ansible-playbook \
+        -c local \
+        -i inventory \
+        --tags $tags \
+        bootstrap.yml
+fi
