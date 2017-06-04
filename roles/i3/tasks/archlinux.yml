@@ -1,0 +1,4 @@
+- name: Copy i3 config file to the home directory
+  copy:
+    src: .config/
+    dest: "{{ ansible_env.HOME }}/.config/"

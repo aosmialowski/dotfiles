@@ -1,0 +1,8 @@
+- name: Copy .gtkrc-2.0 to the home directory
+  copy:
+    src: .gtkrc-2.0
+    dest: "{{ ansible_env.HOME }}/.gtkrc-2.0"
+- name: Copy settings.ini to the home directory
+  copy:
+    src: .config/
+    dest: "{{ ansible_env.HOME }}/.config/"

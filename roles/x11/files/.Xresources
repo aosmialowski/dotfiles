@@ -1,0 +1,88 @@
+! Colors {{{
+
+! special
+*foreground:   #f0f0f0
+*background:   #232c33
+*cursorColor:  #f0f0f0
+
+! black
+! Second black is grey
+*color0:       #232c33
+*color8:       #70838c
+
+! red
+*color1:       #99736e
+*color9:       #99736e
+
+! green
+*color2:       #78a090
+*color10:      #78a090
+
+! yellow
+*color3:       #bfb7a1
+*color11:      #bfb7a1
+
+! blue
+*color4:       #7c9fa6
+*color12:      #7c9fa6
+
+! magenta
+*color5:       #BF9C86
+*color13:      #BF9C86
+
+! cyan
+*color6:       #99BFBA
+*color14:      #99BFBA
+
+! white
+*color7:       #f0f0f0
+*color15:      #f0f0f0
+
+! Xft
+Xft.dpi: 96
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
+
+! URxvt
+URxvt.termName: rxvt-unicode-256color
+URxvt.perl-ext-common: default,matcher,clipboard
+URxvt*font: xft:DejaVu Sans Mono:regular:pixelsize=12:antialias=true:hinting=true
+URxvt*boldfont: xft:Deja Vu Sans Mono:bold:pixelsize=12:antialias=true:hinting=true
+URxvt*letterSpace: -1
+URxvt*scrollBar: false
+
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline Bold
+URxvt.allow_bold: true
+URxvt.iso14755 : false
+URxvt.keysym.C-C: perl:clipboard:copy
+URxvt.keysym.C-V: perl:clipboard:paste
+URxvt.internalBorder: 35
+URxvt.externalBorder: 0
+
+! Rofi
+rofi.color-enabled: true
+rofi.color-window: color0, color5
+! State:           'bg',    'fg',    'bgalt', 'hlbg',  'hlfg'
+rofi.color-normal: color0,  color7,  color0,  color0,  color7
+rofi.color-urgent: color0,  color7,  color0,  color0,  color7
+rofi.color-active: color0,  color7,  color0,  color0,  color7
+rofi.columns: 1
+rofi.width: 40
+rofi.padding: 340
+rofi.font: San Francisco System Display Light 26
+rofi.fullscreen: true
+rofi.bw: 0
+rofi.lines: 10
+rofi.terminal: /usr/bin/urxvt
+rofi.opacity: 80
+rofi.separator-style: none
+rofi.modi: combi
+rofi.combi-modi: run,drun
+rofi.display-combi: run
+rofi.display-drun:
+rofi.display-run:
+

@@ -1,0 +1,4 @@
+- name: Copy Polybar config file to the home directory
+  copy:
+    src: .config/
+    dest: "{{ ansible_env.HOME }}/.config/"

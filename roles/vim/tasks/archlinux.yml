@@ -1,0 +1,4 @@
+- name: Copy .vimrc to the home directory
+  copy:
+    src: .vimrc
+    dest: "{{ ansible_env.HOME }}/.vimrc"

@@ -1,0 +1,4 @@
+- name: Copy .curlrc to the home directory
+  copy:
+    src: .curlrc
+    dest: "{{ ansible_env.HOME }}/.curlrc"

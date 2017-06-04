@@ -1,0 +1,8 @@
+- name: Copy .gitconfig to the home directory
+  copy:
+    src: .gitconfig
+    dest: "{{ ansible_env.HOME }}/.gitconfig"
+- name: Copy .gitignore to the home directory
+  copy:
+    src: .gitignore
+    dest: "{{ ansible_env.HOME }}/.gitignore"

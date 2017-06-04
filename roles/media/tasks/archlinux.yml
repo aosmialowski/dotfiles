@@ -1,0 +1,4 @@
+- name: Copy media files to the home directory
+  copy:
+    src: media/
+    dest: "{{ ansible_env.HOME }}/media/"

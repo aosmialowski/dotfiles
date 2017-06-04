@@ -1,0 +1,8 @@
+- name: Copy .xinitrc to the home directory
+  copy:
+    src: .xinitrc
+    dest: "{{ ansible_env.HOME }}/.xinitrc"
+- name: Copy .Xresources to the home directory
+  copy:
+    src: .Xresources
+    dest: "{{ ansible_env.HOME }}/.Xresources"

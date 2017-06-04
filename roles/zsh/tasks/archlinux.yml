@@ -1,0 +1,8 @@
+- name: Copy .zprofile to the home directory
+  copy:
+    src: .zprofile
+    dest: "{{ ansible_env.HOME }}/.zprofile"
+- name: Copy .zshrc to the home directory
+  copy:
+    src: .zshrc
+    dest: "{{ ansible_env.HOME }}/.zshrc"
