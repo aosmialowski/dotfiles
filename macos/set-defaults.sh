@@ -95,7 +95,7 @@ defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 ###############################################################################
 
 # Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 36
+defaults write com.apple.dock tilesize -int 64
 
 
 ###############################################################################
