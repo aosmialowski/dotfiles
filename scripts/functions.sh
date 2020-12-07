@@ -1,19 +1,30 @@
 #!/usr/bin/env bash
 
+COLOR_RESET="\033[0m"
+COLOR_RED="\033[91m"
+COLOR_GREEN="\033[92m"
+COLOR_YELLOW="\033[93m"
+COLOR_BLUE="\033[94m"
+COLOR_MAGENTA="\033[95m"
+
+debug () {
+  printf "${COLOR_YELLOW}[ .. ] $1${COLOR_RESET}\n"
+}
+
 info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+  printf "${COLOR_BLUE}[ .. ] $1${COLOR_RESET}\n"
 }
 
 success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+  printf "${COLOR_GREEN}[ OK ] $1${COLOR_RESET}\n"
 }
 
 warning () {
-  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+  printf "${COLOR_MAGENTA}[ ?? ] $1${COLOR_RESET}\n"
 }
 
 error () {
-  printf "\r\033[2K  [\033[0;31mERROR\033[0m] $1\n"
+  printf "${COLOR_RED}[ XX ] $1${COLOR_RESET}\n"
   echo ''
   exit
 }
