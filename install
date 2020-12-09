@@ -47,8 +47,8 @@ info 'synchronizing application settings'
 success 'synchronized application settings'
 
 info 'configuring macos settings'
-chmod +x $HOME/.dotfiles/macos/set-defaults.sh
-$HOME/.dotfiles/macos/set-defaults.sh
+chmod +x $HOME/.dotfiles/macos/defaults.sh
+$HOME/.dotfiles/macos/defaults.sh
 success 'configured macos settings'
 
 info 'installing zsh plugins'
