@@ -51,6 +51,10 @@ chmod +x $HOME/.dotfiles/macos/defaults.sh
 $HOME/.dotfiles/macos/defaults.sh
 success 'configured macos settings'
 
+info 'installing xcode command line tools'
+xcode-select --install
+success 'installed xcode command line tools'
+
 info 'installing zsh plugins'
 antibody bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh_plugins.sh
 success 'installed zsh plugins'
