@@ -58,7 +58,7 @@ link '~/.zshrc' 'zsh/zshrc' true
 success "installed dotfiles"
 
 info 'installing homebrew applications'
-/usr/local/bin/brew bundle --quiet &>/dev/null
+/usr/local/bin/brew bundle --quiet --no-lock &>/dev/null
 success 'installed homebrew applications'
 
 info 'synchronizing application settings'
