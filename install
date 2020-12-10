@@ -16,6 +16,12 @@ success 'installed macos updates'
 info 'installing xcode command line tools'
 if [[ ! $(xcode-select -p) ]]; then
   xcode-select --install
+
+  xcode-select -p &>/dev/null
+  while [ $? -ne 1 ]; do
+    info 'waiting for xcode command line tools installation to complete'
+    xcode-select -p &>/dev/null
+  done
 fi
 success 'installed xcode command line tools'
 
