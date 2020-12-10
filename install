@@ -7,6 +7,10 @@ source "$PWD/scripts/functions.sh"
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+info 'installing xcode command line tools'
+xcode-select --install
+success 'installed xcode command line tools'
+
 info 'updating dotfiles repository'
 git pull --quiet;
 success 'updated dotfiles repository'
@@ -50,10 +54,6 @@ info 'configuring macos settings'
 chmod +x $HOME/.dotfiles/macos/defaults.sh
 $HOME/.dotfiles/macos/defaults.sh
 success 'configured macos settings'
-
-info 'installing xcode command line tools'
-xcode-select --install
-success 'installed xcode command line tools'
 
 info 'installing zsh plugins'
 antibody bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh_plugins.sh
