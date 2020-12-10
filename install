@@ -8,7 +8,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 info 'installing macos updates'
-sudo /usr/sbin/softwareupdate --install --all --restart
+sudo /usr/sbin/softwareupdate --install --all --restart &>/dev/null
 success 'installed macos updates'
 
 info 'installing xcode command line tools'
@@ -25,7 +25,7 @@ success 'installed xcode command line tools'
 
 info 'configuring dotfiles repository'
 if [[ ! $(git status &>/dev/null) ]]; then
-  ls -A1 | xargs rm -rf
+  ls -A1 | xargs rm -rf &>/dev/null
   git clone $REPOSITORY .
 fi
 success 'configured dotfiles repository'
@@ -62,11 +62,11 @@ link '~/.zshrc' 'zsh/zshrc' true
 success "installed dotfiles"
 
 info 'installing homebrew applications'
-/usr/local/bin/brew bundle --quiet
+/usr/local/bin/brew bundle --quiet &>/dev/null
 success 'installed homebrew applications'
 
 info 'synchronizing application settings'
-/usr/local/bin/mackup --force restore
+/usr/local/bin/mackup --force restore &>/dev/null
 success 'synchronized application settings'
 
 #info 'configuring macos settings'
@@ -75,13 +75,13 @@ success 'synchronized application settings'
 #success 'configured macos settings'
 
 info 'installing zsh plugins'
-antibody bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh_plugins.sh
+antibody bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh_plugins.sh &>/dev/null
 success 'installed zsh plugins'
 
 info 'updating zsh plugins'
-antibody update
+antibody update &>/dev/null
 success 'updated zsh plugins'
 
 info 'removing outdated homebrew packages'
-brew cleanup
+brew cleanup &>/dev/null
 success 'removed outdated homebrew packages'
