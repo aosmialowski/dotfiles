@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 source "$PWD/scripts/functions.sh"
 
 REPOSITORY=https://github.com/aosmialowski/dotfiles.git
