@@ -65,10 +65,10 @@ info 'synchronizing application settings'
 /usr/local/bin/mackup --force restore &>/dev/null
 success 'synchronized application settings'
 
-#info 'configuring macos settings'
-#chmod +x $HOME/.dotfiles/macos/defaults.sh
-#$HOME/.dotfiles/macos/defaults.sh
-#success 'configured macos settings'
+info 'configuring macos default settings'
+chmod +x $HOME/.dotfiles/macos/defaults.sh
+$HOME/.dotfiles/macos/defaults.sh
+success 'configured macos default settings'
 
 info 'installing zsh plugins'
 antibody bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh_plugins.sh &>/dev/null
