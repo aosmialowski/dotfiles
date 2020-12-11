@@ -8,6 +8,10 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/node@12/bin:$PATH"
 export PATH=$WORKSPACE:$PATH
 
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_INSECURE_REDIRECT=1
+export HOMEBREW_CASK_OPTS=--require-sha
+
 source ~/.zsh_plugins.sh
 source ~/.zsh/options.zsh
 
