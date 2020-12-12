@@ -12,21 +12,30 @@ debug () {
 }
 
 info () {
-  printf "${COLOR_BLUE}[ .. ] $1${COLOR_RESET}\n"
+  printf "${COLOR_BLUE}[ .. ] TASK [$1]${COLOR_RESET}\n"
 }
 
 success () {
-  printf "${COLOR_GREEN}[ OK ] $1${COLOR_RESET}\n"
+  printf "${COLOR_GREEN}[ OK ] TASK COMPLETED [$1]${COLOR_RESET}\n"
 }
 
 warning () {
-  printf "${COLOR_MAGENTA}[ ?? ] $1${COLOR_RESET}\n"
+  printf "${COLOR_MAGENTA}[ ?? ] TASK [$1]${COLOR_RESET}\n"
 }
 
 error () {
-  printf "${COLOR_RED}[ XX ] $1${COLOR_RESET}\n"
-  echo ''
-  exit
+  printf "${COLOR_RED}[ ?? ] TASK FAILED [$1]${COLOR_RESET}\n"
+  exit 1
+}
+
+result () {
+  if [[ "$1" -eq 0 ]]; then
+      success "$2"
+  else
+      error "$2"
+  fi
+
+  return "$1"
 }
 
 link () {
