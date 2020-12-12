@@ -2,6 +2,7 @@
 export EDITOR='vim'
 export SUDO_EDITOR='vim'
 
+export DOTFILES=$HOME/.dotfiles
 export WORKSPACE=$HOME/Workspace
 
 export PATH="/usr/local/sbin:$PATH"
