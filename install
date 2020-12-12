@@ -1,48 +1,116 @@
 #!/usr/bin/env bash
 
-source "$PWD/scripts/functions.sh"
+if [[ ! $(uname) = "Darwin" ]]; then
+  error 'unsupported os' # TODO add error message
+fi
 
-REPOSITORY=https://github.com/aosmialowski/dotfiles.git
+DOTFILES_DIR=$HOME/.dotfiles
+DOTFILES_REPO=https://github.com/aosmialowski/dotfiles.git
 
 sudo -v
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2> /dev/null &
 
-info 'installing xcode command line tools'
-if [[ ! $(xcode-select -p) ]]; then
-  xcode-select --install
+ESC_SEQ="\x1b["
+COL_RESET=$ESC_SEQ"39;49;00m"
+COL_RED=$ESC_SEQ"31;01m"
+COL_GREEN=$ESC_SEQ"32;01m"
+COL_YELLOW=$ESC_SEQ"33;01m"
+COL_BLUE=$ESC_SEQ"34;01m"
+COL_MAGENTA=$ESC_SEQ"35;01m"
+COL_CYAN=$ESC_SEQ"36;01m"
 
-  xcode-select -p &>/dev/null
-  while [ $? -ne 1 ]; do
-    info 'waiting for xcode command line tools installation to complete'
-    xcode-select -p &>/dev/null
+function info () {
+  echo -e "$COL_BLUE[ .. ]$COL_RESET "$1
+}
+
+function running () {
+    echo -e "$COL_YELLOW[ => ] $COL_RESET"$1""
+}
+
+function success () {
+    echo -e "$COL_GREEN[ ok ]$COL_RESET "$1
+}
+
+function warn () {
+    echo -e "$COL_MAGENTA[ !! ]$COL_RESET "$1
+}
+
+function error () {
+    echo -e "$COL_RED[ !! ]$COL_RESET "$1
+}
+
+result () {
+  if [[ "$1" -eq 0 ]]; then
+      success "$2"
+  else
+      error "$2"
+  fi
+
+  return "$1"
+}
+
+link () {
+  args=("$@")
+
+  file="${args[0]/\~\/}"
+  source="$PWD/${args[1]}"
+  force="${args[2]}"
+  backup="$HOME/backup/$(date +%Y%m%d%H%M%S)"
+
+  if [[ $force = true ]]; then
+    if [[ -L $HOME/$file ]]; then
+      info "removing existing link: $file"
+      rm $HOME/$file
+    fi
+  fi
+
+  if [[ -f $HOME/$file ]]; then
+    if [[ ! -L $HOME/$file ]]; then
+      info "backing up file: $file"
+      mkdir -p $backup/$(dirname $file)
+      mv $HOME/$file $backup/$file
+    fi
+  fi
+
+  if [[ ! -L $HOME/$file ]]; then
+    info "creating link to $file"
+    mkdir -p $HOME/$(dirname $file)
+    ln -si $source $HOME/$file
+  fi
+}
+
+task='installing xcode command line tools'
+running "$task"
+if [[ ! $(xcode-select --print-path) ]]; then
+  xcode-select --install &> /dev/null
+
+  until [[ $(xcode-select --print-path) ]]; do
+    wait "$task"
+    sleep 5
   done
 fi
-success 'installed xcode command line tools'
+result $? "$task"
 
-info 'configuring dotfiles repository'
-if [[ ! $(git status &>/dev/null) ]]; then
-  ls -A1 | xargs rm -rf &>/dev/null
-  git clone $REPOSITORY .
+task='setting up dotfiles repository'
+info "$task"
+if [[ ! -d $DOTFILES_DIR ]]; then
+  $(which git) clone $DOTFILES_REPO $DOTFILES_DIR --quiet
+else
+  cd $DOTFILES_DIR && $(which git) pull --quiet
 fi
-success 'configured dotfiles repository'
+result $? "$task"
 
-info 'updating dotfiles repository'
-git pull --quiet;
-success 'updated dotfiles repository'
+cd $DOTFILES_DIR
 
-info 'creating required directories'
+task='creating required directories'
+info "$task"
 [ -d $HOME/.mackup ] || mkdir $HOME/.mackup
 [ -d $HOME/.zsh ] || mkdir $HOME/.zsh
 [ -d $HOME/Workspace ] || mkdir $HOME/Workspace
-success 'created required directories'
+result $? "$task"
 
-if [[ ! $(which brew) ]]; then
-  info 'installing homebrew'
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  success 'installed homebrew'
-fi
-
-info 'installing dotfiles'
+task='installing dotfiles'
+info "$task"
 link '~/.curlrc' 'curl/curlrc' true
 link '~/.editorconfig' 'editorconfig/editorconfig' true
 link '~/.gitattributes' 'git/gitattributes' true
@@ -55,29 +123,41 @@ link '~/.wgetrc' 'wget/wgetrc' true
 link '~/.zsh/options.zsh' 'zsh/options.zsh' true
 link '~/.zsh/plugins.txt' 'zsh/plugins.txt' true
 link '~/.zshrc' 'zsh/zshrc' true
-success "installed dotfiles"
+result $? "$task"
 
-info 'installing homebrew applications'
-/usr/local/bin/brew bundle --quiet --no-lock &>/dev/null
-success 'installed homebrew applications'
+if [[ ! $(which brew) ]]; then
+  task='installing homebrew'
+  info "$task"
+  yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" &> /dev/null
+  result $? "$task"
+else
+  task='updating homebrew'
+  info "$task"
+  $(which brew) update &> /dev/null
+  result $? "$task"
 
-info 'synchronizing application settings'
-/usr/local/bin/mackup --force restore &>/dev/null
-success 'synchronized application settings'
+  task='upgrading homebrew'
+  info "$task"
+  $(which brew) upgrade &> /dev/null
+  result $? "$task"
+fi
 
-info 'configuring macos default settings'
-chmod +x $HOME/.dotfiles/macos/defaults.sh
-$HOME/.dotfiles/macos/defaults.sh
-success 'configured macos default settings'
+task='installing homebrew packages'
+info "$task"
+/usr/local/bin/brew bundle --file=$DOTFILES/homebrew/Brewfile --quiet --no-lock install &>/dev/null
+result $? "$task"
 
-info 'installing zsh plugins'
-antibody bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh_plugins.sh &>/dev/null
-success 'installed zsh plugins'
+task='cleaning up homebrew packages'
+info "$task"
+/usr/local/bin/brew cleanup &>/dev/null
+result $? "$task"
 
-info 'updating zsh plugins'
-antibody update &>/dev/null
-success 'updated zsh plugins'
+task='installing zsh plugins'
+info "$task"
+$(which antibody) bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh/plugins.zsh &> /dev/null
+result $? "$task"
 
-info 'removing outdated homebrew packages'
-brew cleanup &>/dev/null
-success 'removed outdated homebrew packages'
+task='updating zsh plugins'
+info "$task"
+$(which antibody) update &> /dev/null
+result $? "$task"

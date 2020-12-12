@@ -30,5 +30,5 @@ info 'backing up application settings'
 success 'backed up application settings'
 
 info 'updating Brewfile'
-/usr/local/bin/brew bundle --force --file $PWD/Brewfile dump
+/usr/local/bin/brew bundle --force dump
 success 'updated Brewfile'
