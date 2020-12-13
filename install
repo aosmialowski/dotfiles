@@ -53,9 +53,9 @@ echo 'installed xcode command line tools'
 
 echo 'configuring dotfiles repository'
 if [[ ! -d $DOTFILES_DIR ]]; then
-  $(which git) clone $DOTFILES_REPO $DOTFILES_DIR --quiet
+  $(which git) clone $DOTFILES_REPO $DOTFILES_DIR
 else
-  cd $DOTFILES_DIR && $(which git) pull --quiet
+  cd $DOTFILES_DIR && $(which git) pull
 fi
 echo 'configured dotfiles repository'
 
@@ -104,7 +104,7 @@ else
 fi
 
 echo 'installing homebrew packages'
-$(which brew) bundle --file=$DOTFILES_DIR/homebrew/Brewfile --quiet --no-lock install
+$(which brew) bundle --file=$DOTFILES_DIR/homebrew/Brewfile --no-lock install
 echo 'installed homebrew packages'
 
 echo 'cleaning up homebrew packages'

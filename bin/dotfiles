@@ -20,7 +20,7 @@ backup () {
 }
 
 clean () {
-  $(which brew) cleanup &> /dev/null
+  $(which brew) cleanup
 }
 
 macos () {
@@ -32,9 +32,9 @@ macos () {
 
 update () {
   sudo $(which softwareupdate) --install --all
-  $(which brew) update &> /dev/null
-  $(which brew) upgrade &> /dev/null
-  $(which antibody) update &> /dev/null
+  $(which brew) update
+  $(which brew) upgrade
+  $(which antibody) update
 }
 
 case $COMMAND_NAME in
