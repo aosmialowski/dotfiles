@@ -148,12 +148,12 @@ fi
 
 task='installing homebrew packages'
 info "$task"
-/usr/local/bin/brew bundle --file=$DOTFILES/homebrew/Brewfile --quiet --no-lock install &>/dev/null
+$(which brew) bundle --file=$DOTFILES/homebrew/Brewfile --quiet --no-lock install &>/dev/null
 result $? "$task"
 
 task='cleaning up homebrew packages'
 info "$task"
-/usr/local/bin/brew cleanup &>/dev/null
+$(which brew) cleanup &>/dev/null
 result $? "$task"
 
 task='installing zsh plugins'
