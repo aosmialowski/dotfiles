@@ -165,3 +165,8 @@ task='updating zsh plugins'
 info "$task"
 $(which antibody) update &> /dev/null
 result $? "$task"
+
+task='restoring application preferences'
+info "$task"
+$(which mackup) --force restore &>/dev/null
+result $? "$task"
