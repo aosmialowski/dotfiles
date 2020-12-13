@@ -104,7 +104,7 @@ else
 fi
 
 echo 'installing homebrew packages'
-$(which brew) bundle --file=$DOTFILES/homebrew/Brewfile --quiet --no-lock install
+$(which brew) bundle --file=$DOTFILES_DIR/homebrew/Brewfile --quiet --no-lock install
 echo 'installed homebrew packages'
 
 echo 'cleaning up homebrew packages'
