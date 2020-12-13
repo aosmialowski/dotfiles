@@ -93,7 +93,6 @@ cd $DOTFILES_DIR
 task='Creating required directories'
 info "$task"
 [ -d $HOME/bin ] || mkdir $HOME/bin
-[ -d $HOME/.mackup ] || mkdir $HOME/.mackup
 [ -d $HOME/.zsh ] || mkdir $HOME/.zsh
 [ -d $HOME/Workspace ] || mkdir $HOME/Workspace
 result $? "$task"
@@ -111,8 +110,6 @@ link '~/.editorconfig' 'editorconfig/editorconfig' true
 link '~/.gitattributes' 'git/gitattributes' true
 link '~/.gitconfig' 'git/gitconfig' true
 link '~/.gitignore' 'git/gitignore' true
-link '~/.mackup.cfg' 'mackup/mackup.cfg' true
-link '~/.mackup/jetbrains-tools.cfg' 'mackup/jetbrains-tools.cfg' true
 link '~/.vimrc' 'vim/vimrc' true
 link '~/.wgetrc' 'wget/wgetrc' true
 link '~/.zsh/options.zsh' 'zsh/options.zsh' true
@@ -156,11 +153,6 @@ result $? "$task"
 task='Updating zsh plugins'
 info "$task"
 $(which antibody) update
-result $? "$task"
-
-task='Restoring application preferences'
-info "$task"
-$(which mackup) --force restore
 result $? "$task"
 
 task='Configuring macos default settings'

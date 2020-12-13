@@ -37,7 +37,7 @@ help () {
   echo "Usage: $BIN_NAME <command>"
   echo
   echo "Commands:"
-  echo "  backup           Backup application settings & dump Brewfile"
+  echo "  backup           Backup list of installed Homebrew packages into Brewfile"
   echo "  clean            Clean up caches (Homebrew)"
   echo "  help             This help message"
   echo "  macos            Apply macOS system defaults"
@@ -45,11 +45,6 @@ help () {
 }
 
 backup () {
-  task='Backing up application preferences'
-  info "$task"
-  $(which mackup) --force backup
-  result $? "$task"
-
   task='Generating Brewfile'
   info "$task"
   $(which brew) bundle --force --file=$DOTFILES/homebrew/Brewfile dump
