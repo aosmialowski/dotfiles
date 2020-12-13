@@ -198,24 +198,6 @@ defaults write com.apple.screencapture type -string "png"
 # Xcode                                                                       #
 ###############################################################################
 
-# Enable project build time
-defaults write com.apple.dt.Xcode ShowBuildOperationDuration -bool YES
-
-# Enable maximum number of concurrent compile tasks
-defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks `sysctl -n hw.ncpu`
-
-# Enable indexing
-defaults delete com.apple.dt.Xcode IDEIndexDisable
-defaults write com.apple.dt.XCode IDEIndexEnable -bool YES
-
-# Disable automatic reopening of last project
-# Prevents Xcode from automatically restoring the last open project.
-# This enables running multiple Xcode versions for different projects.
-defaults write com.apple.dt.Xcode ApplePersistenceIgnoreState -bool YES
-
-# Enable internal Xcode (debug) menu
-defaults write com.apple.dt.Xcode ShowDVTDebugMenu -bool YES
-
 # Some minimal additional logging
 defaults write com.apple.dt.XCBuild EnableDebugActivityLogs -bool YES
 
