@@ -115,7 +115,7 @@ link '~/.wgetrc' 'wget/wgetrc' true
 link '~/.zsh/options.zsh' 'zsh/options.zsh' true
 link '~/.zsh/plugins.txt' 'zsh/plugins.txt' true
 link '~/.zshrc' 'zsh/zshrc' true
-link '~/bin/dotfiles' 'bin/dotfiles' true
+link '~/bin/dot' 'bin/dot' true
 result $? "$task"
 
 if [[ ! $(which brew) ]]; then
