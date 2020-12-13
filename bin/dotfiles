@@ -15,6 +15,11 @@ help () {
   echo "  update           Update packages (macOS, homebrew)"
 }
 
+backup () {
+  $(which mackup) --force backup
+  $(which brew) bundle --force --file=$DOTFILES/homebrew/Brewfile dump
+}
+
 clean () {
   $(which brew) cleanup &> /dev/null
 }
