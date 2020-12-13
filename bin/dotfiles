@@ -24,10 +24,7 @@ clean () {
 }
 
 macos () {
-  for DEFAULTS_FILE in "${DOTFILES_DIR}"/macos/*.sh; do
-    echo "Applying ${DEFAULTS_FILE}" && . "${DEFAULTS_FILE}"
-  done
-  echo "Done. Some changes may require a logout/restart to take effect."
+  $HOME/.dotfiles/macos/defaults.sh
 }
 
 update () {
