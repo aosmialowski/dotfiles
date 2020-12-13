@@ -158,7 +158,7 @@ result $? "$task"
 
 task='installing zsh plugins'
 info "$task"
-$(which antibody) bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh/plugins.zsh &> /dev/null
+$(which antibody) bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh/plugins.zsh
 result $? "$task"
 
 task='updating zsh plugins'
