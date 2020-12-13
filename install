@@ -112,6 +112,12 @@ info "$task"
 [ -d $HOME/Workspace ] || mkdir $HOME/Workspace
 result $? "$task"
 
+task='setting up files permission'
+chmod +x $DOTFILES_DIR/bin/defaults
+chmod +x $DOTFILES_DIR/macos/*.sh
+info "$task"
+result $? "$task"
+
 task='installing dotfiles'
 info "$task"
 link '~/.curlrc' 'curl/curlrc' true
@@ -173,6 +179,5 @@ result $? "$task"
 
 task='configuring macos default settings'
 info "$task"
-chmod +x $HOME/.dotfiles/macos/defaults.sh
 $HOME/.dotfiles/macos/defaults.sh
 result $? "$task"
