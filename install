@@ -170,3 +170,9 @@ task='restoring application preferences'
 info "$task"
 $(which mackup) --force restore &>/dev/null
 result $? "$task"
+
+task='configuring macos default settings'
+info "$task"
+chmod +x $HOME/.dotfiles/macos/defaults.sh
+$HOME/.dotfiles/macos/defaults.sh
+result $? "$task"
