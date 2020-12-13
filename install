@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 if [[ ! $(uname) = "Darwin" ]]; then
   error 'unsupported os' # TODO add error message
 fi
