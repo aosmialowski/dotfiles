@@ -30,6 +30,7 @@ update () {
   sudo $(which softwareupdate) --install --all
   $(which brew) update &> /dev/null
   $(which brew) upgrade &> /dev/null
+  $(which antibody) update &> /dev/null
 }
 
 case $COMMAND_NAME in
