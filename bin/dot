@@ -47,7 +47,7 @@ help () {
 backup () {
   task='Generating Brewfile'
   info "$task"
-  $(which brew) bundle dump --force --file=$DOTFILES/homebrew/Brewfile
+  $(which brew) bundle dump --force --file=$HOME/Brewfile
   result $? "$task"
 }
 

@@ -116,6 +116,7 @@ link '~/.zsh/options.zsh' 'zsh/options.zsh' true
 link '~/.zsh/plugins.txt' 'zsh/plugins.txt' true
 link '~/.zshrc' 'zsh/zshrc' true
 link '~/bin/dot' 'bin/dot' true
+link '~/Brewfile' 'homebrew/Brewfile' true
 result $? "$task"
 
 if [[ ! $(which brew) ]]; then
@@ -137,7 +138,7 @@ fi
 
 task='Installing Homebrew packages'
 info "$task"
-$(which brew) bundle --file=$DOTFILES_DIR/homebrew/Brewfile --no-lock install
+$(which brew) bundle --file=$HOME/Brewfile --no-lock install
 result $? "$task"
 
 task='Cleaning up Homebrew packages'
