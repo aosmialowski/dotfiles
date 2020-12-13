@@ -17,23 +17,43 @@ help () {
 }
 
 backup () {
+  echo -e "Backing up application preferences"
   $(which mackup) --force backup
+  echo -e "Backed up application preferences\n"
+
+  echo -e "Generating Brewfile"
   $(which brew) bundle --force --file=$DOTFILES/homebrew/Brewfile dump
+  echo -e "Generated Brewfile\n"
 }
 
 clean () {
+  echo -e "Cleaning up Homebrew packages"
   $(which brew) cleanup
+  echo -e "Cleaned up Homebrew packages"
 }
 
 macos () {
+  echo -e "Configuring macOS default preferences"
   $HOME/.dotfiles/macos/defaults.sh
+  echo -e "Configured macOS default preferences\n"
 }
 
 update () {
+  echo -e "Updating macOS"
   sudo $(which softwareupdate) --install --all
+  echo -e "Updated macOS\n"
+
+  echo -e "Upgrading Homebrew"
   $(which brew) update
+  echo -e "Updated Homebrew"
+
+  echo -e "Updating Homebrew packages"
   $(which brew) upgrade
+  echo -e "Updated Homebrew packages\n"
+
+  echo -e "Updating zsh plugins"
   $(which antibody) update
+  echo -e "Updated zsh plugins\n"
 }
 
 case $COMMAND_NAME in
@@ -44,7 +64,7 @@ case $COMMAND_NAME in
     shift
     ${COMMAND_NAME} $@
     if [ $? = 127 ]; then
-      echo "'$COMMAND_NAME' is not a known command or has errors." >&2
+      echo -e "'$COMMAND_NAME' is not a known command or has errors." >&2
       help
       exit 1
     fi

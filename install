@@ -22,60 +22,60 @@ link () {
 
   if [[ $force = true ]]; then
     if [[ -L $HOME/$file ]]; then
-      echo "removing existing link: $file"
+      echo -e "Removing existing link: $file"
       rm $HOME/$file
     fi
   fi
 
   if [[ -f $HOME/$file ]]; then
     if [[ ! -L $HOME/$file ]]; then
-      echo "backing up file: $file"
+      echo -e "Backing up file: $file"
       mkdir -p $backup/$(dirname $file)
       mv $HOME/$file $backup/$file
     fi
   fi
 
   if [[ ! -L $HOME/$file ]]; then
-    echo "creating link to $file"
+    echo -e "Creating link to $file"
     mkdir -p $HOME/$(dirname $file)
     ln -si $source $HOME/$file
   fi
 }
 
-echo 'installing xcode command line tools'
+echo -e "Installing Xcode command line tools"
 if [[ ! $(xcode-select --print-path) ]]; then
   xcode-select --install
 
   until [[ $(xcode-select --print-path) ]]; do
-    echo 'waiting for xcode command line tools installation to complete'
+    echo -e "Waiting for Xcode command line tools installation to complete"
     sleep 5
   done
 fi
-echo 'installed xcode command line tools'
+echo -e "Installed Xcode command line tools\n"
 
-echo 'configuring dotfiles repository'
+echo -e "Configuring dotfiles repository"
 if [[ ! -d $DOTFILES_DIR ]]; then
   $(which git) clone $DOTFILES_REPO $DOTFILES_DIR
 else
   cd $DOTFILES_DIR && $(which git) pull
 fi
-echo 'configured dotfiles repository'
+echo -e "Configured dotfiles repository\n"
 
 cd $DOTFILES_DIR
 
-echo 'creating required directories'
+echo -e "Creating required directories"
 [ -d $HOME/bin ] || mkdir $HOME/bin
 [ -d $HOME/.mackup ] || mkdir $HOME/.mackup
 [ -d $HOME/.zsh ] || mkdir $HOME/.zsh
 [ -d $HOME/Workspace ] || mkdir $HOME/Workspace
-echo 'created required directories'
+echo -e "Created required directories"
 
-echo 'setting up files permission'
+echo -e "Applying required files permission"
 chmod +x $DOTFILES_DIR/bin/dotfiles
 chmod +x $DOTFILES_DIR/macos/*.sh
-echo 'set up files permission'
+echo -e "Applied required files permission\n"
 
-echo 'installing dotfiles'
+echo -e "Installing dotfiles"
 link '~/.curlrc' 'curl/curlrc' true
 link '~/.editorconfig' 'editorconfig/editorconfig' true
 link '~/.gitattributes' 'git/gitattributes' true
@@ -89,42 +89,42 @@ link '~/.zsh/options.zsh' 'zsh/options.zsh' true
 link '~/.zsh/plugins.txt' 'zsh/plugins.txt' true
 link '~/.zshrc' 'zsh/zshrc' true
 link '~/bin/dotfiles' 'bin/dotfiles' true
-echo 'installed dotfiles'
+echo -e "Installed dotfiles\n"
 
 if [[ ! $(which brew) ]]; then
-  echo 'installing homebrew'
+  echo -e "Installing Homebrew"
   yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  echo 'installed homebrew'
+  echo -e "Installed Homebrew\n"
 else
-  echo 'updating homebrew'
+  echo -e "Updating Homebrew"
   $(which brew) update
-  echo 'updated homebrew'
+  echo -e "Updated Homebrew\n"
 
-  echo 'upgrading homebrew'
+  echo -e "Upgrading Homebrew"
   $(which brew) upgrade
-  echo 'upgraded homebrew'
+  echo -e "Upgraded Homebrew\n"
 fi
 
-echo 'installing homebrew packages'
+echo -e "Installing Homebrew packages"
 $(which brew) bundle --file=$DOTFILES_DIR/homebrew/Brewfile --no-lock install
-echo 'installed homebrew packages'
+echo -e "Installed Homebrew packages\n"
 
-echo 'cleaning up homebrew packages'
+echo -e "Cleaning up Homebrew packages"
 $(which brew) cleanup
-echo 'cleaned up homebrew packages'
+echo -e "Cleaned up Homebrew packages\n"
 
-echo 'installing zsh plugins'
+echo -e "Installing zsh plugins"
 $(which antibody) bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh/plugins.zsh
-echo 'installed zsh plugins'
+echo -e "Installed zsh plugins\n"
 
-echo 'updating zsh plugins'
+echo -e "Updating zsh plugins"
 $(which antibody) update
-echo 'updated zsh plugins'
+echo -e "Updated zsh plugins\n"
 
-echo 'restoring application preferences'
+echo -e "Restoring application preferences"
 $(which mackup) --force restore
-echo 'restored application preferences'
+echo -e "Restored application preferences\n"
 
-echo 'configuring macos default settings'
+echo -e "Configuring macos default settings"
 $HOME/.dotfiles/macos/defaults.sh
-echo 'configured macos default settings'
+echo -e "Configured macos default settings\n"
