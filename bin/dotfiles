@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+BIN_NAME=$(basename "$0")
+COMMAND_NAME=$1
+FUNCTION_NAME=$2
+
+help () {
+  echo "Usage: $BIN_NAME <command>"
+  echo
+  echo "Commands:"
+  echo "  backup           Backup application settings & dump Brewfile"
+  echo "  clean            Clean up caches (Homebrew)"
+  echo "  help             This help message"
+  echo "  macos            Apply macOS system defaults"
+  echo "  update           Update packages (macOS, homebrew)"
+}
+
+clean () {
+  $(which brew) cleanup &> /dev/null
+}
+
+macos () {
+  for DEFAULTS_FILE in "${DOTFILES_DIR}"/macos/*.sh; do
+    echo "Applying ${DEFAULTS_FILE}" && . "${DEFAULTS_FILE}"
+  done
+  echo "Done. Some changes may require a logout/restart to take effect."
+}
+
+update () {
+  sudo $(which softwareupdate) --install --all
+  $(which brew) update &> /dev/null
+  $(which brew) upgrade &> /dev/null
+}
+
+case $COMMAND_NAME in
+  "" | "-h" | "--help")
+    help
+    ;;
+  *)
+    shift
+    ${COMMAND_NAME} $@
+    if [ $? = 127 ]; then
+      echo "'$COMMAND_NAME' is not a known command or has errors." >&2
+      help
+      exit 1
+    fi
+    ;;
+esac
