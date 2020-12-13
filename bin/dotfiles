@@ -5,6 +5,34 @@ set -e
 BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
 
+ESC_SEQ="\x1b["
+COL_RESET=$ESC_SEQ"39;49;00m"
+COL_RED=$ESC_SEQ"31;01m"
+COL_GREEN=$ESC_SEQ"32;01m"
+COL_BLUE=$ESC_SEQ"34;01m"
+
+function info () {
+  echo -e "$COL_BLUE""RUNNING: $1$COL_RESET"
+}
+function success () {
+  echo -e "$COL_GREEN""COMPLETED: $1$COL_RESET\n"
+}
+
+function error () {
+  echo -e "$COL_RED""FAILED: $1$COL_RESET\n"
+  exit 1
+}
+
+result () {
+  if [[ "$1" -eq 0 ]]; then
+      success "$2"
+  else
+      error "$2"
+  fi
+
+  return "$1"
+}
+
 help () {
   echo "Usage: $BIN_NAME <command>"
   echo
@@ -17,43 +45,47 @@ help () {
 }
 
 backup () {
-  echo -e "Backing up application preferences"
+  task='Backing up application preferences'
+  info "$task"
   $(which mackup) --force backup
-  echo -e "Backed up application preferences\n"
+  result $? "$task"
 
-  echo -e "Generating Brewfile"
+  task='Generating Brewfile'
+  info "$task"
   $(which brew) bundle --force --file=$DOTFILES/homebrew/Brewfile dump
-  echo -e "Generated Brewfile\n"
+  result $? "$task"
 }
 
 clean () {
-  echo -e "Cleaning up Homebrew packages"
+  task='Cleaning up Homebrew packages'
+  info "$task"
   $(which brew) cleanup
-  echo -e "Cleaned up Homebrew packages"
+  result $? "$task"
 }
 
 macos () {
-  echo -e "Configuring macOS default preferences"
+  task='Configuring macOS default preferences'
+  info "$task"
   $HOME/.dotfiles/macos/defaults.sh
-  echo -e "Configured macOS default preferences\n"
+  result $? "$task"
 }
 
 update () {
-  echo -e "Updating macOS"
+  task='Updating macOS'
   sudo $(which softwareupdate) --install --all
-  echo -e "Updated macOS\n"
+  result $? "$task"
 
-  echo -e "Upgrading Homebrew"
+  task='Upgrading Homebrew'
   $(which brew) update
-  echo -e "Updated Homebrew"
+  result $? "$task"
 
-  echo -e "Updating Homebrew packages"
+  task='Updating Homebrew packages'
   $(which brew) upgrade
-  echo -e "Updated Homebrew packages\n"
+  result $? "$task"
 
-  echo -e "Updating zsh plugins"
+  task='Updating zsh plugins'
   $(which antibody) update
-  echo -e "Updated zsh plugins\n"
+  result $? "$task"
 }
 
 case $COMMAND_NAME in
