@@ -69,7 +69,7 @@ echo 'creating required directories'
 echo 'created required directories'
 
 echo 'setting up files permission'
-chmod +x $DOTFILES_DIR/bin/defaults
+chmod +x $DOTFILES_DIR/bin/dotfiles
 chmod +x $DOTFILES_DIR/macos/*.sh
 echo 'set up files permission'
 
