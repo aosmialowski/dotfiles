@@ -38,36 +38,6 @@ result () {
   return "$1"
 }
 
-link () {
-  args=("$@")
-
-  file="${args[0]/\~\/}"
-  source="$PWD/${args[1]}"
-  force="${args[2]}"
-  backup="$HOME/backup/$(date +%Y%m%d%H%M%S)"
-
-  if [[ $force = true ]]; then
-    if [[ -L $HOME/$file ]]; then
-      echo -e "Removing existing link: $file"
-      rm $HOME/$file
-    fi
-  fi
-
-  if [[ -f $HOME/$file ]]; then
-    if [[ ! -L $HOME/$file ]]; then
-      echo -e "Backing up file: $file"
-      mkdir -p $backup/$(dirname $file)
-      mv $HOME/$file $backup/$file
-    fi
-  fi
-
-  if [[ ! -L $HOME/$file ]]; then
-    echo -e "Creating link to $file"
-    mkdir -p $HOME/$(dirname $file)
-    ln -si $source $HOME/$file
-  fi
-}
-
 task='Installing Xcode command line tools'
 info "$task"
 if [[ ! $(xcode-select --print-path) ]]; then
@@ -99,24 +69,19 @@ result $? "$task"
 
 task="Applying required files permission"
 info "$task"
-chmod +x $DOTFILES_DIR/bin/dotfiles
+chmod +x $HOME/bin/dot
 chmod +x $DOTFILES_DIR/macos/*.sh
 result $? "$task"
 
 task='Installing dotfiles'
 info "$task"
-link '~/.curlrc' 'curl/curlrc' true
-link '~/.editorconfig' 'editorconfig/editorconfig' true
-link '~/.gitattributes' 'git/gitattributes' true
-link '~/.gitconfig' 'git/gitconfig' true
-link '~/.gitignore' 'git/gitignore' true
-link '~/.vimrc' 'vim/vimrc' true
-link '~/.wgetrc' 'wget/wgetrc' true
-link '~/.zsh/options.zsh' 'zsh/options.zsh' true
-link '~/.zsh/plugins.txt' 'zsh/plugins.txt' true
-link '~/.zshrc' 'zsh/zshrc' true
-link '~/bin/dot' 'bin/dot' true
-link '~/Brewfile' 'homebrew/Brewfile' true
+for directory in *; do
+  if [[ -f "$directory" || -L "$directory" ]]; then
+    continue
+  fi
+
+  $(which stow) --dir $DOTFILES_DIR --target $HOME $directory
+done
 result $? "$task"
 
 if [[ ! $(which brew) ]]; then
