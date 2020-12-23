@@ -7,6 +7,7 @@ export WORKSPACE=$HOME/Workspace
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/node@12/bin:$PATH"
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 export PATH=$WORKSPACE:$PATH
 export PATH=$HOME/bin:$PATH
 
