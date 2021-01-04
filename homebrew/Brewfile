@@ -4,6 +4,7 @@ tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "stripe/stripe-cli"
 brew "ack"
+brew "openssl@1.1"
 brew "gettext"
 brew "ansible"
 brew "antibody"
@@ -95,7 +96,6 @@ mas "JPEGmini Lite", id: 525742250
 mas "Keynote", id: 409183694
 mas "LittleIpsum", id: 405772121
 mas "Magnet", id: 441258766
-mas "MindNode", id: 1289197285
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Parcel", id: 639968404
