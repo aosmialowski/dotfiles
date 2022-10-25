@@ -62,14 +62,13 @@ cd $DOTFILES_DIR
 
 task='Creating required directories'
 info "$task"
-[ -d $HOME/bin ] || mkdir $HOME/bin
 [ -d $HOME/.zsh ] || mkdir $HOME/.zsh
 [ -d $HOME/Workspace ] || mkdir $HOME/Workspace
 result $? "$task"
 
 task="Applying required files permission"
 info "$task"
-chmod +x $HOME/bin/dot
+chmod +x $DOTFILES_DIR/scripts/*
 chmod +x $DOTFILES_DIR/macos/*.sh
 result $? "$task"
 
