@@ -38,10 +38,11 @@ help () {
   echo
   echo "Commands:"
   echo "  backup           Backup list of installed Homebrew packages into Brewfile"
-  echo "  clean            Clean up caches (Homebrew)"
+  echo "  clean            Clean up Homebrew packages"
   echo "  help             This help message"
+  echo "  homebrew         Update installed Homebrew packages"
   echo "  macos            Apply macOS system defaults"
-  echo "  update           Update packages (macOS, homebrew)"
+  echo "  zsh              Update installed zsh plugins"
 }
 
 backup () {
@@ -65,19 +66,17 @@ macos () {
   result $? "$task"
 }
 
-update () {
-  task='Updating macOS'
-  sudo $(which softwareupdate) --install --all
-  result $? "$task"
-
-  task='Upgrading Homebrew'
+homebrew () {
+  task='Updating Homebrew'
   $(which brew) update
   result $? "$task"
 
   task='Updating Homebrew packages'
   $(which brew) upgrade
   result $? "$task"
+}
 
+zsh() {
   task='Updating zsh plugins'
   $(which antibody) update
   result $? "$task"
