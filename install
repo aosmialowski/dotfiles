@@ -95,7 +95,7 @@ else
   $(which brew) update
   result $? "$task"
 
-  task='Upgrading Homebrew'
+  task='Updating Homebrew packages'
   info "$task"
   $(which brew) upgrade
   result $? "$task"
