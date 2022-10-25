@@ -90,7 +90,7 @@ for file in scripts/*; do
     continue
   fi
 
-  ln -s "$DOTFILES_DIR/$file" "/usr/local/bin/$(basename $file)"
+  ln -sf "$DOTFILES_DIR/$file" "/usr/local/bin/$(basename $file)"
 done
 result $? "$task"
 
