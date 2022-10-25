@@ -83,6 +83,17 @@ for directory in *; do
 done
 result $? "$task"
 
+task='Installing scripts'
+info "$task"
+for file in scripts/*; do
+  if [ ! -f "$file" ]; then
+    continue
+  fi
+
+  ln -s "$DOTFILES_DIR/$file" "/usr/local/bin/$(basename $file)"
+done
+result $? "$task"
+
 if [[ ! $(which brew) ]]; then
   task='Installing Homebrew'
   info "$task"
