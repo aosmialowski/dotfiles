@@ -72,6 +72,28 @@ chmod +x $DOTFILES_DIR/scripts/*
 chmod +x $DOTFILES_DIR/macos/*.sh
 result $? "$task"
 
+if [[ ! $(which brew) ]]; then
+  task='Installing Homebrew'
+  info "$task"
+  yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  result $? "$task"
+else
+  task='Updating Homebrew'
+  info "$task"
+  $(which brew) update
+  result $? "$task"
+
+  task='Updating Homebrew packages'
+  info "$task"
+  $(which brew) upgrade
+  result $? "$task"
+fi
+
+task='Installing GNU Stow'
+info "$task"
+$(which brew) install stow
+result $? "$task"
+
 task='Installing dotfiles'
 info "$task"
 for directory in *; do
@@ -93,23 +115,6 @@ for file in scripts/*; do
   ln -sf "$DOTFILES_DIR/$file" "/usr/local/bin/$(basename $file)"
 done
 result $? "$task"
-
-if [[ ! $(which brew) ]]; then
-  task='Installing Homebrew'
-  info "$task"
-  yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  result $? "$task"
-else
-  task='Updating Homebrew'
-  info "$task"
-  $(which brew) update
-  result $? "$task"
-
-  task='Updating Homebrew packages'
-  info "$task"
-  $(which brew) upgrade
-  result $? "$task"
-fi
 
 task='Installing Homebrew packages'
 info "$task"
