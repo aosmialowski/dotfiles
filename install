@@ -77,6 +77,12 @@ if [[ ! $(which brew) ]]; then
   info "$task"
   yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   result $? "$task"
+
+  task='Change default user shell to ZSH'
+  info "$task"
+  $(which chsh) -s /bin/zsh
+  result $? "$task"
+
 else
   task='Updating Homebrew'
   info "$task"
