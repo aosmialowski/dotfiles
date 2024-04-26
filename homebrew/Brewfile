@@ -1,5 +1,5 @@
 tap "homebrew/bundle"
-tap "homebrew/core"
+
 brew "ack"
 brew "openssl@1.1"
 brew "gettext"
