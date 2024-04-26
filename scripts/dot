@@ -76,12 +76,6 @@ homebrew () {
   result $? "$task"
 }
 
-zsh() {
-  task='Updating zsh plugins'
-  $(which antibody) update
-  result $? "$task"
-}
-
 case $COMMAND_NAME in
   "" | "-h" | "--help")
     help

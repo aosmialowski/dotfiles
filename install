@@ -126,16 +126,6 @@ info "$task"
 $(which brew) cleanup
 result $? "$task"
 
-task='Installing zsh plugins'
-info "$task"
-$(which antibody) bundle < $HOME/.zsh/plugins.txt > $HOME/.zsh/plugins.zsh
-result $? "$task"
-
-task='Updating zsh plugins'
-info "$task"
-$(which antibody) update
-result $? "$task"
-
 task='Configuring macos default settings'
 info "$task"
 $HOME/.dotfiles/macos/defaults.sh
