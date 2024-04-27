@@ -132,6 +132,11 @@ info "$task"
 $(which brew) cleanup
 result $? "$task"
 
+task='Installing Node Version Manager'
+info "$task"
+/bin/bash -c "$(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh)"
+result $? "$task"
+
 task='Configuring macos default settings'
 info "$task"
 $HOME/.dotfiles/macos/defaults.sh
