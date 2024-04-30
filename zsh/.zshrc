@@ -5,7 +5,6 @@ export SUDO_EDITOR='vim'
 export DOTFILES=$HOME/.dotfiles
 export WORKSPACE=$HOME/Workspace
 
-export PATH="/usr/local/sbin:$PATH"
 export PATH=$WORKSPACE:$PATH
 
 export HOMEBREW_NO_ANALYTICS=1

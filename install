@@ -62,6 +62,7 @@ cd $DOTFILES_DIR
 
 task='Creating required directories'
 info "$task"
+[ -d $HOME/bin] || mkdir $HOME/bin
 [ -d $HOME/.zsh ] || mkdir $HOME/.zsh
 [ -d $HOME/Workspace ] || mkdir $HOME/Workspace
 result $? "$task"
@@ -76,6 +77,7 @@ if [[ ! $(which brew) ]]; then
   task='Installing Homebrew'
   info "$task"
   yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
   result $? "$task"
 
   task='Change default user shell to ZSH'
