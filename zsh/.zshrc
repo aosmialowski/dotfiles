@@ -33,6 +33,7 @@ bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
 # ALIASES
+alias ls="ls -aln --color=auto"
 alias w="cd ~/Workspace"
 
 export NVM_DIR="$HOME/.nvm"
