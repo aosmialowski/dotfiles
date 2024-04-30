@@ -120,7 +120,7 @@ for file in scripts/*; do
     continue
   fi
 
-  ln -sf "$DOTFILES_DIR/$file" "/usr/local/bin/$(basename $file)"
+  ln -sf "$DOTFILES_DIR/$file" "$HOME/bin/$(basename $file)"
 done
 result $? "$task"
 
