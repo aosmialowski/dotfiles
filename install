@@ -7,9 +7,6 @@ fi
 DOTFILES_DIR=$HOME/.dotfiles
 DOTFILES_REPO=git@github.com:aosmialowski/dotfiles.git
 
-sudo -v
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2> /dev/null &
-
 ESC_SEQ="\x1b["
 COL_RESET=$ESC_SEQ"39;49;00m"
 COL_RED=$ESC_SEQ"31;01m"
