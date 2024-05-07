@@ -37,7 +37,15 @@ brew "zsh-completions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 
+cask "1password"
+cask "appcleaner"
+cask "discord"
+cask "docker"
 cask "google-cloud-sdk"
+cask "iterm2"
+cask "jetbrains-toolbox"
+cask "postman"
+cask "slack"
 
 mas "Amphetamine", id: 937984704
 mas "Boop", id: 1518425043
